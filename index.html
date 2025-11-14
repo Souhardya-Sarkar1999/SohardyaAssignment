@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anonymous Faculty Feedback</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #c471f5, #fa71cd, #fcb045);
+        background-size: 300% 300%;
+        animation: gradientMove 8s ease infinite;
+        overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .main-card {
+        background: rgba(255,255,255,0.18);
+        backdrop-filter: blur(14px);
+        border-radius: 22px;
+        padding: 35px;
+        box-shadow: 0px 20px 50px rgba(0,0,0,0.25);
+        border: 1px solid rgba(255,255,255,0.25);
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease;
+        animation: fadeUp 0.9s ease forwards;
+        opacity: 0;
+    }
+
+    .main-card:hover {
+        transform: rotateX(7deg) rotateY(-7deg) scale(1.02);
+        box-shadow: 0px 25px 60px rgba(255,255,255,0.3);
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    label {
+        font-weight: 600;
+        color: #ffffff;
+        margin-top: 10px;
+    }
+
+    .form-control, .form-select, textarea {
+        border-radius: 12px !important;
+        border: none !important;
+        padding: 12px;
+        box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.85);
+        color: #000 !important;
+        font-size: 0.95rem;
+    }
+
+    .form-control::placeholder, textarea::placeholder {
+        color: #333 !important;
+    }
+
+    .rating-btn label {
+        border-radius: 10px !important;
+        padding: 10px 18px;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-right: 5px;
+        transition: 0.3s ease;
+        background: rgba(255,255,255,0.25);
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.25);
+        backdrop-filter: blur(5px);
+    }
+
+    .rating-btn label:hover {
+        transform: translateY(-4px) scale(1.12);
+        background: #ff9dfc;
+        border-color: #fff;
+        color: #000;
+        box-shadow: 0 6px 15px rgba(255,255,255,0.6);
+    }
+
+    #submitBtn {
+        background: linear-gradient(135deg, #ff9dfc, #ffa7e5);
+        border: none;
+        padding: 13px 28px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        border-radius: 14px;
+        color: #000;
+        transition: 0.3s ease;
+        box-shadow: 0 8px 20px rgba(255,255,255,0.4);
+    }
+
+    #submitBtn:hover {
+        transform: translateY(-4px) scale(1.1);
+        box-shadow: 0 12px 28px rgba(255,255,255,0.6);
+    }
+
+    #alertArea {
+        font-size: 1rem;
+        font-weight: 600;
+        animation: fadeUp 0.6s ease;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="main-card">
+
+                <h2 class="text-center text-white mb-3">Anonymous Faculty Feedback</h2>
+                <p class="text-center text-light mb-4">Your identity is never collected — feel free to be honest.</p>
+
+                <form id="feedbackForm">
+
+                    <label>Faculty Name / Course Code</label>
+                    <input type="text" id="facultyId" class="form-control mb-3" required maxlength="100">
+
+                    <label>Overall Rating (1–5)</label>
+                    <div class="rating-btn btn-group mb-3">
+                        <input type="radio" class="btn-check" name="rating" id="r1" value="1">
+                        <label class="btn" for="r1">1</label>
+                        <input type="radio" class="btn-check" name="rating" id="r2" value="2">
+                        <label class="btn" for="r2">2</label>
+                        <input type="radio" class="btn-check" name="rating" id="r3" value="3">
+                        <label class="btn" for="r3">3</label>
+                        <input type="radio" class="btn-check" name="rating" id="r4" value="4">
+                        <label class="btn" for="r4">4</label>
+                        <input type="radio" class="btn-check" name="rating" id="r5" value="5">
+                        <label class="btn" for="r5">5</label>
+                    </div>
+
+                    <label>Teaching Clarity (1–5)</label>
+                    <select id="clarity" class="form-select mb-3">
+                        <option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                    </select>
+
+                    <label>Engagement Level (1–5)</label>
+                    <select id="engagement" class="form-select mb-3">
+                        <option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                    </select>
+
+                    <label>Pace of Teaching</label>
+                    <select id="pace" class="form-select mb-3">
+                        <option value="">Select</option><option>Too Fast</option><option>Balanced</option><option>Too Slow</option>
+                    </select>
+
+                    <label>Would you recommend this faculty?</label>
+                    <select id="recommend" class="form-select mb-3">
+                        <option value="">Select</option><option>Yes</option><option>No</option>
+                    </select>
+
+                    <label>What did you like the most?</label>
+                    <textarea id="liked" class="form-control mb-3" rows="2" maxlength="300"></textarea>
+
+                    <label>What needs improvement?</label>
+                    <textarea id="improve" class="form-control mb-3" rows="2" maxlength="300"></textarea>
+
+                    <label>Additional Comments</label>
+                    <textarea id="comments" class="form-control mb-4" rows="3" maxlength="2000"></textarea>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-light">Secure • Anonymous • Confidential</small>
+                        <button id="submitBtn" class="btn">Submit</button>
+                    </div>
+
+                    <div id="alertArea" class="mt-3"></div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+const functionUrl = "/api/Submit_Fd"; // ← CHANGE THIS
+
+document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const facultyId = document.getElementById('facultyId').value.trim();
+    const rating = document.querySelector('input[name="rating"]:checked')?.value;
+
+    if (!facultyId) return showAlert("Please enter faculty name", "danger");
+    if (!rating) return showAlert("Please select a rating", "danger");
+
+    const combined = `
+Clarity: ${document.getElementById('clarity').value}
+Engagement: ${document.getElementById('engagement').value}
+Pace: ${document.getElementById('pace').value}
+Recommend: ${document.getElementById('recommend').value}
+Liked: ${document.getElementById('liked').value}
+Improve: ${document.getElementById('improve').value}
+Additional: ${document.getElementById('comments').value}
+`.trim();
+
+    const payload = {
+        facultyId,
+        rating: Number(rating),
+        category: "General",
+        comments: combined
+    };
+
+    try {
+        const res = await fetch(functionUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+            showAlert("Thank you! Your feedback has been submitted.", "success");
+            document.getElementById('feedbackForm').reset();
+        } else showAlert("Error submitting feedback.", "danger");
+
+    } catch {
+        showAlert("Network error. Try again.", "danger");
+    }
+});
+
+function showAlert(msg, type) {
+    document.getElementById('alertArea').innerHTML =
+        `<div class="alert alert-${type}">${msg}</div>`;
+}
+</script>
+
+</body>
+</html>
